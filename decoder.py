@@ -34,3 +34,51 @@ def decode_text(raw_text):
 
     text = unicodedata.normalize('NFKC', text)
     return text
+
+def analyze_html(body_html):
+    soup = BeautifulSoup(body_html, 'html_parser')
+
+    links = []
+    visible_texts = []
+    hidden_texts = []
+
+    for a in soup.find_all('a', href=True):
+        original_url = a['href']
+        anchor_text = a.get_text(strip=True)
+
+        processed_url = original_url
+
+        if 'xn--' in original_url:
+            try:
+                parts = original_url.split('/')
+                if len(parts) > 2:
+                    domain = parts[2]
+                    clean_domain = idna.decode(domain)
+                    processed_url = original_url.replace(domain, clean_domain)
+            except Exception:
+                pass
+
+        links.append({
+            "real URL": processed_url,
+            "Anchor Text": anchor_text
+        })
+
+    for element in soup.find_all(True):
+        if element.name in ['style', 'script', 'head', 'title', 'meta']:
+            continue
+
+        style = element.get('style', '').lower()
+        element_text = element.get_text(strip=True)
+
+        if element_text:
+            if 'display:none' in style or 'visibility:hidden' in style or 'opacity:0' in style:
+                hidden_texts.append(element_text)
+            else:
+                if element.find(string=True, recursive=False):
+                    visible_texts.append(element.find(string=True, recursive=False).strip())
+
+    return {
+        "Links": links,
+        "Clean Text": "".join(visible_texts),
+        "There is hidden text": len(hidden_texts) > 0
+    }
