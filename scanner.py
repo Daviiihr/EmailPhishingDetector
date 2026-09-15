@@ -39,3 +39,9 @@ def analyze_email(affair, raw_boddy):
         if "." in anchor and not " " in anchor and anchor.lower() not in url.lower():
             if "http" in anchor or "www" in anchor or ".com" in anchor:
                 warning.append(f"Visual Spoofing: The text {anchor} redirects to {url}")
+
+    return {
+        "Risky score": score,
+        "Is phishing": score >=5,
+        "Warning": warning
+    }
