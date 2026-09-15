@@ -1,49 +1,25 @@
-import re
+from scanner import analyze_email
 
-# Definicion de patrones irregulares para buscar elementos claves del phishing
+if __name__ == "__main__":
+    test_subject ="=?utf-8?q?Acci=C3=B3n_Requerida=3A_Cuenta_Bloqueada?="
 
-pattern = re.compile(
-    r'\b(urgente|inmediato|cuenta suspendida|verificar|actualizar datos|alerta de seguridad|bloqueada)\b',
-    re.IGNORECASE,
-)
+    body_test = """
+        <html>
+          <body>
+            <p>Estimado usuario, se requiere acci&#243;n <b>urgente</b>.</p>
+            <p>Su c\u200buen\u200bta ha sido suspendida.</p>
+            <div style="display:none">Este texto es ignorado por el usuario pero confunde a los filtros</div>
+            <p>Verifique su identidad aqu&#x2F;:
+               <a href="http://xn--googl-0qa.com/login">https://www.google.com/login</a>
+            </p>
+          </body>
+        </html>
+        """
+    result = analyze_email(test_subject, body_test)
 
-url_pattern = re.compile(
-    r'https?://[^\s<>"]+|www\.[^\s<>"]+'
-)
-
-IP_URL_PATTERN = re.compile(r'https?://\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
-SUSPICIOUS_DOMAIN = ['.xyz', '.top', '.gq', '.ml', '.cf', '.tk', '.cc', '.buzz']
-SHORTS = ['bit.ly', 'tinyurl.com', 't.co', 'ow.ly', 'buff.ly']
-
-# Funcion de analisis
-
-def analyze_phishing(affair, body):
-    full_text = f"{affair} {body}"
-    risk_score = 0
-    warning = []
-
-    pattern_search = pattern.findall(full_text)
-    if pattern_search:
-        risk_score += len(set(pattern_search)) * 2
-        warning.append(f"Keywords found: {set(pattern_search)}")
-
-    urls = url_pattern.findall(full_text)
-    for url in urls:
-        if IP_URL_PATTERN.match(url):
-            risk_score += 5
-            warning.append(f"IP URL found: {url}")
-
-        if any(shorts in url for shorts in SHORTS):
-            risk_score += 3
-            warning.append(f"Short URL found: {url}")
-
-        if any(domain in url for domain in SUSPICIOUS_DOMAIN):
-            risk_score += 4
-            warning.append(f"Suspicious domain found: {url}")
-
-    resultado = {
-        "Risk Score": risk_score,
-        "Warning": warning,
-        "Is phishing": risk_score >=5
-    }
-    return resultado
+    print("=== Analysis Report ===")
+    print(f"Score: {result['Risky score']}")
+    print(f"Veredict: {'PHISHING DETECTED' if result['Is phishing'] else 'Clean Email'}")
+    print("Warning    :")
+    for warning in result['Warning']:
+        print(f" [!] {warning}")
