@@ -36,7 +36,7 @@ def decode_text(raw_text):
     return text
 
 def analyze_html(body_html):
-    soup = BeautifulSoup(body_html, 'html_parser')
+    soup = BeautifulSoup(body_html, 'html.parser')
 
     links = []
     visible_texts = []
@@ -79,6 +79,6 @@ def analyze_html(body_html):
 
     return {
         "Links": links,
-        "Clean Text": "".join(visible_texts),
+        "Clean Text": " ".join(visible_texts),
         "There is hidden text": len(hidden_texts) > 0
     }
