@@ -9,7 +9,7 @@ def analyze_email(affair, raw_boddy):
     decode_boddy = decode_text(raw_boddy)
     html_data = analyze_html(decode_boddy)
 
-    total_text = f"{clean_affair}{html_data['Clean text']}"
+    total_text = f"{clean_affair}{html_data['Clean Text']}"
 
     urgency = pattern.findall(total_text)
     if urgency:
@@ -18,7 +18,7 @@ def analyze_email(affair, raw_boddy):
 
     if html_data['There is hidden text']:
         score += 4
-        warning.append("Urgency detected: HTML elements hidden with CSS")
+        warning.append("Hidden HTML elements detected with CSS")
 
     for link in html_data['Links']:
         url = link['real URL']

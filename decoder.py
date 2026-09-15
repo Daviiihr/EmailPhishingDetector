@@ -5,12 +5,26 @@ import unicodedata
 import idna
 from bs4 import BeautifulSoup
 import ftfy
+from email.header import decode_header
 
 def decode_text(raw_text):
     if not raw_text:
         return ""
 
-    text = ftfy.fix_text(raw_text)
+    # Decodificar cabeceras RFC 2047 MIME (ej: =?utf-8?q?...?=)
+    try:
+        decoded_parts = decode_header(raw_text)
+        text_parts = []
+        for bytes_or_str, encoding in decoded_parts:
+            if isinstance(bytes_or_str, bytes):
+                text_parts.append(bytes_or_str.decode(encoding or 'utf-8', errors='ignore'))
+            else:
+                text_parts.append(str(bytes_or_str))
+        text = "".join(text_parts)
+    except Exception:
+        text = raw_text
+
+    text = ftfy.fix_text(text)
 
     if "=" in text:
             try:

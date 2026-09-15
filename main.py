@@ -21,5 +21,5 @@ if __name__ == "__main__":
     print(f"Score: {result['Risky score']}")
     print(f"Veredict: {'PHISHING DETECTED' if result['Is phishing'] else 'Clean Email'}")
     print("Warning    :")
-    for warning in result['warning']:
+    for warning in result['Warning']:
         print(f" [!] {warning}")
