@@ -15,6 +15,7 @@ from phishing_detector.models import (
     PipelineContext,
 )
 from phishing_detector.scoring import ScoringEngine
+from phishing_detector.stages.actions import ActionEngine
 from phishing_detector.stages.attachments import (
     AttachmentInspectionStage,
     QrCodeDecoder,
@@ -64,7 +65,8 @@ class PhishingPipeline:
             SemanticAnalysisStage(self.config, classifier=classifier),
         ]
         self.scoring_engine = ScoringEngine(self.config)
-        self.action_handler = action_handler
+        self.action_engine = ActionEngine(self.config)
+        self.action_handler = action_handler or self.action_engine.handle
 
     def analyze_context(self, context: PipelineContext) -> AnalysisReport:
         """Run all stages, score findings, and optionally execute Stage 8 actions."""

@@ -1,5 +1,6 @@
 """Pipeline stages package."""
 
+from phishing_detector.stages.actions import ActionEngine, inject_warning_banner
 from phishing_detector.stages.attachments import (
     AttachmentInspectionStage,
     DefaultQrCodeDecoder,
@@ -19,6 +20,7 @@ from phishing_detector.stages.semantic import (
 from phishing_detector.stages.url_analysis import UrlAnalysisStage
 
 __all__ = [
+    "ActionEngine",
     "AttachmentInspectionStage",
     "DefaultQrCodeDecoder",
     "HeaderAuthStage",
@@ -33,5 +35,6 @@ __all__ = [
     "SemanticAnalysisStage",
     "UrlAnalysisStage",
     "decode_mime_header",
+    "inject_warning_banner",
     "normalize_text",
 ]

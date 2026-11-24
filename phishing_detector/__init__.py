@@ -1,6 +1,7 @@
 """Email Phishing Detector — Multi-layer Defense-in-Depth Engine."""
 
 from phishing_detector.config import DetectorConfig
+from phishing_detector.feedback import FeedbackStore
 from phishing_detector.models import (
     ActionOutcome,
     ActionType,
@@ -21,10 +22,13 @@ from phishing_detector.models import (
 
 from phishing_detector.pipeline import PhishingPipeline, analyze_email
 from phishing_detector.scoring import ScoringEngine
+from phishing_detector.stages.actions import ActionEngine
+from phishing_detector.telemetry import TelemetryLogger
 
 __version__ = "1.0.0"
 
 __all__ = [
+    "ActionEngine",
     "ActionOutcome",
     "ActionType",
     "AnalysisReport",
@@ -32,6 +36,7 @@ __all__ = [
     "DetectorConfig",
     "EmailMessage",
     "ExtractedLink",
+    "FeedbackStore",
     "Finding",
     "HeaderAnalysis",
     "NormalizedContent",
@@ -42,6 +47,7 @@ __all__ = [
     "ScoringEngine",
     "SemanticAnalysis",
     "Severity",
+    "TelemetryLogger",
     "Verdict",
     "analyze_email",
 ]
