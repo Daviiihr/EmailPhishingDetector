@@ -1,0 +1,17 @@
+From: Ana Perez <ana.perez@acme-engineering.org>
+To: equipo@acme-engineering.org
+Return-Path: <ana.perez@acme-engineering.org>
+Date: Tue, 24 Nov 2026 09:30:00 -0300
+Message-ID: <sprint-notes-20261124@acme-engineering.org>
+Authentication-Results: mx.acme-engineering.org; spf=pass; dkim=pass; dmarc=pass
+Subject: Notas de la reunion semanal del proyecto
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Hola equipo,
+
+Adjunto el resumen de la reunion semanal de planificacion del sprint.
+Cuando tengan un momento, revisen el pull request pendiente antes del jueves.
+
+Saludos,
+Ana

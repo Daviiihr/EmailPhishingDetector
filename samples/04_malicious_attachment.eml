@@ -1,0 +1,25 @@
+From: Facturacion Proveedores <billing@invoices-portal.top>
+To: contabilidad@corp.local
+Date: Tue, 24 Nov 2026 14:00:00 +0000
+Message-ID: <inv-9981@invoices-portal.top>
+Authentication-Results: mx.corp.local; spf=fail; dkim=none; dmarc=fail
+Subject: Factura pendiente - pago inmediato requerido
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="BOUNDARY_PHISH_99"
+
+--BOUNDARY_PHISH_99
+Content-Type: text/plain; charset="utf-8"
+
+Estimado cliente,
+
+Adjuntamos la factura pendiente con vencimiento hoy. Por favor abra el documento adjunto
+de inmediato para evitar recargos.
+
+--BOUNDARY_PHISH_99
+Content-Type: application/pdf; name="factura_pendiente.pdf.exe"
+Content-Disposition: attachment; filename="factura_pendiente.pdf.exe"
+Content-Transfer-Encoding: base64
+
+TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+--BOUNDARY_PHISH_99--
