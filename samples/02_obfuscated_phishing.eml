@@ -1,0 +1,21 @@
+Received: from mail.unknown-relay.xyz ([93.184.216.34]) by mx.corp.local; Tue, 24 Nov 2026 11:00:00 +0000
+From: Soporte Google <alertas@seguridad-cuenta.xyz>
+To: usuario@corp.local
+Return-Path: <bounce@mailer-bot.top>
+Reply-To: harvest@collector.click
+Date: Tue, 24 Nov 2026 11:00:00 +0000
+Authentication-Results: mx.corp.local; spf=fail; dkim=fail; dmarc=fail
+Subject: =?utf-8?q?Acci=C3=B3n_Requerida=3A_Cuenta_Bloqueada?=
+MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+
+<html>
+  <body>
+    <p>Estimado usuario, se requiere acci&#243;n <b>urgente</b>.</p>
+    <p>Su c&#8203;uen&#8203;ta ha sido suspendida por actividad inusual.</p>
+    <div style="display: none">Este texto es ignorado por el usuario pero confunde a los filtros</div>
+    <p>Verifique su identidad e ingrese su contrase&#241;a aqu&#x2F;:
+       <a href="http://xn--googl-0qa.com/login">https://www.google.com/login</a>
+    </p>
+  </body>
+</html>
