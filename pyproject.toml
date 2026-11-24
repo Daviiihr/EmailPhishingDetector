@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "email-phishing-detector"
+version = "1.0.0"
+description = "Multi-layer Defense-in-Depth Email Phishing Detection Engine"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "beautifulsoup4>=4.12.0",
+    "ftfy>=6.1.0",
+    "idna>=3.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+quishing = [
+    "Pillow>=10.0.0",
+]
+
+[project.scripts]
+phishing-detector = "phishing_detector.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["phishing_detector*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
