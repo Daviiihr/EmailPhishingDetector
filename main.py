@@ -1,8 +1,10 @@
-from scanner import analyze_email
+"""Entry point for running a quick demonstration of the Email Phishing Detector."""
 
-if __name__ == "__main__":
-    test_subject ="=?utf-8?q?Acci=C3=B3n_Requerida=3A_Cuenta_Bloqueada?="
+from phishing_detector import analyze_email
 
+
+def run_demo() -> None:
+    test_subject = "=?utf-8?q?Acci=C3=B3n_Requerida=3A_Cuenta_Bloqueada?="
     body_test = """
         <html>
           <body>
@@ -14,12 +16,23 @@ if __name__ == "__main__":
             </p>
           </body>
         </html>
-        """
-    result = analyze_email(test_subject, body_test)
+    """
+    report = analyze_email(
+        test_subject,
+        body_test,
+        sender="Soporte Google <alertas@seguridad-cuenta.xyz>",
+    )
 
-    print("=== Analysis Report ===")
-    print(f"Score: {result['Risky score']}")
-    print(f"Veredict: {'PHISHING DETECTED' if result['Is phishing'] else 'Clean Email'}")
-    print("Warning    :")
-    for warning in result['Warning']:
-        print(f" [!] {warning}")
+    print("=== Email Phishing Analysis Report ===")
+    print(f"Trace ID:    {report.trace_id}")
+    print(f"Subject:     {report.subject}")
+    print(f"Risk Score:  {report.risk_score} ({report.risk_level.value})")
+    print(f"Verdict:     {report.verdict.value}")
+    print(f"Action:      {report.recommended_action.value}")
+    print("Findings:")
+    for finding in report.findings:
+        print(f"  [+{finding.score} | {finding.stage}] {finding.title}: {finding.description}")
+
+
+if __name__ == "__main__":
+    run_demo()
