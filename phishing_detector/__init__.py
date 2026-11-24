@@ -19,6 +19,9 @@ from phishing_detector.models import (
     Verdict,
 )
 
+from phishing_detector.pipeline import PhishingPipeline, analyze_email
+from phishing_detector.scoring import ScoringEngine
+
 __version__ = "1.0.0"
 
 __all__ = [
@@ -32,10 +35,13 @@ __all__ = [
     "Finding",
     "HeaderAnalysis",
     "NormalizedContent",
+    "PhishingPipeline",
     "PipelineContext",
     "ReceivedHop",
     "RiskLevel",
+    "ScoringEngine",
     "SemanticAnalysis",
     "Severity",
     "Verdict",
+    "analyze_email",
 ]
